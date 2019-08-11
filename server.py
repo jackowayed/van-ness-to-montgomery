@@ -1,6 +1,7 @@
 from flask import Flask
 app = Flask(__name__)
 
+import collections
 import nextbus
 import string
 import threading
@@ -11,7 +12,7 @@ class Times:
     self.coming = set()
     self.in_transit = set()
     self.left_ts = dict()
-    self.arrived_ts = dict()
+    self.times = collections.deque()
     
   def update_times(self):
     old_coming = self.coming
@@ -19,23 +20,26 @@ class Times:
     for vid in old_coming:
       if vid not in self.coming:
         self.left_ts[vid] = time.time()
-        self.in_transit.add(vid)
+        self.in_transit.append(vid)
     arriving = {vid for _, vid, __ in nextbus.nextbus_stop_helper('sf-muni', 'L', '15731')}
-    for vid in in_transit:
+    for vid in self.in_transit:
       if vid not in arriving:
         self.in_transit.remove(vid)
+        if vid in left_ts:
+          self.times.appendleft((time.time() - left_ts.pop(vid)) / 60)
+        
         
         
   def debug(self):
-    return "Coming: {}\nIn Transit: {}\nLeft: {}\n In Transit: {}\n".format(
-      self.coming, self.in_transit, self.left_ts, self.arrived_ts)
+    return "Coming: {}\nIn Transit: {}\nLeft: {}\nTimes: {}\n".format(
+      self.coming, self.in_transit, self.left_ts, self.times)
         
 TIMES = Times()
     
 
 @app.route("/")
-def hello():
-  return TIMES.debug().replace("\n", "<br/>")
+def times():
+  return list(TIMES.times)[:10]
 
 @app.route("/update-times", methods=["POST"])
 def update_times():

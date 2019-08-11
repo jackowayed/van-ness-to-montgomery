@@ -66,7 +66,8 @@ def nextbus_stop_helper(agency, route, stop, path_adjust="", ages={}):
           timeout=1))
   except Exception:
     logging.exception("Couldn't reach predictions server")
-    return []
+    raise
+    #return []
 
   prediction_sections = [] # (route_tag, vehicle_id, minutes)
 
