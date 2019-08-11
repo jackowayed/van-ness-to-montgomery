@@ -75,8 +75,7 @@ def nextbus_stop_helper(agency, route, stop, path_adjust="", ages={}):
       for prediction in direction.getElementsByTagName("prediction"):
         vid = prediction.getAttribute("vehicle")
         minutes = int(prediction.getAttribute("minutes"))
-
-    prediction_sections.append((predictions.getAttribute("routeTag"),
+        prediction_sections.append((predictions.getAttribute("routeTag"),
                                 vid,
                                 minutes))
 
