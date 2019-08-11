@@ -109,24 +109,7 @@ def nextbus_stop_helper(agency, route, stop, path_adjust="", ages={}):
                                 "\n".join(prediction_section)))
 
   natural_sort_in_place(prediction_sections)
-
-  escaped_content = []
-  # sort the route requested before others
-  for _, route_tag, prediction_section in prediction_sections:
-    if route_tag == route:
-      escaped_content.append(prediction_section)
-  # now include any that have predictions
-  for _, route_tag, prediction_section in prediction_sections:
-    if route_tag != route:
-      if no_predictions not in prediction_section:
-        escaped_content.append(prediction_section)
-  # now the ones without predictions
-  for _, route_tag, prediction_section in prediction_sections:
-    if route_tag != route:
-      if no_predictions in prediction_section:
-        escaped_content.append(prediction_section)
-
-  return escape(stop_title), escaped_content
+  return prediction_sections
 
 def nextbus_route_helper(agency, route):
   stops = {}
