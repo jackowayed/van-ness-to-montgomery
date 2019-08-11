@@ -17,15 +17,15 @@ class Times:
     
   def update_times(self):
     old_coming = self.coming
-    self.coming = {vid for _, vid, __ in nextbus.nextbus_stop_helper('sf-muni', 'L', '15419')}
-    for vid in old_coming:
-      if vid not in self.coming:
+    self.coming = {(vid, min) for _, vid, min in nextbus.nextbus_stop_helper('sf-muni', 'L', '15419')}
+    for vid, minutes in old_coming:
+      if vid not in self.coming and minutes < 4:
         self.left_ts[vid] = time.time()
         self.in_transit.add(vid)
     arriving = {vid for _, vid, __ in nextbus.nextbus_stop_helper('sf-muni', 'L', '15731')}
     in_transit = self.in_transit.copy()
     for vid in self.in_transit:
-      if vid not in arriving and vid not in self.coming:
+      if vid not in arriving:
         logging.info("no {}".format(vid))
         in_transit.remove(vid)
         if vid in self.left_ts:
