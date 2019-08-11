@@ -2,6 +2,7 @@ from flask import Flask
 app = Flask(__name__)
 
 import collections
+import logging
 import nextbus
 import string
 import threading
@@ -25,6 +26,7 @@ class Times:
     in_transit = self.in_transit.copy()
     for vid in self.in_transit:
       if vid not in arriving:
+        logging.info("no {}".format(vid))
         in_transit.remove(vid)
         if vid in self.left_ts:
           elapsed = "{0:.1f}".format((time.time() - self.left_ts.pop(vid)) / 60)
