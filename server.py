@@ -22,11 +22,14 @@ class Times:
         self.left_ts[vid] = time.time()
         self.in_transit.add(vid)
     arriving = {vid for _, vid, __ in nextbus.nextbus_stop_helper('sf-muni', 'L', '15731')}
+    in_transit = self.in_transit.copy()
     for vid in self.in_transit:
       if vid not in arriving:
-        self.in_transit.remove(vid)
+        in_transit.remove(vid)
         if vid in self.left_ts:
-          self.times.appendleft((time.time() - self.left_ts.pop(vid)) / 60)
+          elapsed = "{0:.1f}".format((time.time() - self.left_ts.pop(vid)) / 60)
+          self.times.appendleft(elapsed)
+    self.in_transit = in_transit
         
         
         
