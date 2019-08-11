@@ -71,40 +71,16 @@ def nextbus_stop_helper(agency, route, stop, path_adjust="", ages={}):
   prediction_sections = [] # (route_tag, vehicle_id, minutes)
 
   for predictions in xmldoc.getElementsByTagName("predictions"):
-    # prefer the name for this stop used by the route in question
-    if stop_title is None or predictions.getAttribute("routeTag") == route:
-      stop_title = predictions.getAttribute("stopTitle")
-
-    prediction_section = []
-
-    if predictions.getAttribute("dirTitleBecauseNoPredictions"):
-      prediction_section.append("<h2 class>%s: %s</h2>" % (
-          predictions.getAttribute("routeTitle"),
-          predictions.getAttribute("dirTitleBecauseNoPredictions")))
-      prediction_section.append(no_predictions)
-
     for direction in predictions.getElementsByTagName("direction"):
-      prediction_section.append("<h2 class>%s: %s</h2>" % (
-          predictions.getAttribute("routeTitle"),
-          direction.getAttribute("title")))
       for prediction in direction.getElementsByTagName("prediction"):
         vid = prediction.getAttribute("vehicle")
-        prediction_section.append("<div class=prediction>%s minute%s (%s%svehicle %s%s)</div>" % (
-            minutes = escape(prediction.getAttribute("minutes")
-            
-            "<a href='%s../../%s/%s/vehicle/%s'>%s</a>" % (
-                path_adjust,
-                predictions.getAttribute("routeTag"),
-                stop,
-                vid,
-                vid),
-            (", %s" % to_time(ages[vid])) if vid in ages else ""))
+        minutes = int(prediction.getAttribute("minutes"))
 
-    prediction_sections.append((predictions.getAttribute("routeTitle"),
-                                predictions.getAttribute("routeTag"),
-                                "\n".join(prediction_section)))
+    prediction_sections.append((predictions.getAttribute("routeTag"),
+                                vid,
+                                minutes))
 
-  natural_sort_in_place(prediction_sections)
+  #natural_sort_in_place(prediction_sections)
   return prediction_sections
 
 def nextbus_route_helper(agency, route):
