@@ -1,22 +1,21 @@
 from flask import Flask
 app = Flask(__name__)
 
+import string
 import threading
 import time
 
-nonce = 0
+NONCE = 0
 
 @app.route("/")
 def hello():
-  return f"Hello World! {nonce}"
+  return "Hello World! {}".format(NONCE)
+
+@app.route("/update-times", methods=["POST"])
+def update_times():
+  global NONCE
+  NONCE += 1
+  return "Updated {}".format(NONCE)
 
 if __name__ == "__main__":
   app.run()
-  
-  
-def update_times():
-  nonce += 1
-
-def update_times_recurring():
-  update_times()
-  time.sleep(20)
