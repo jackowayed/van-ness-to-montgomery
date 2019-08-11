@@ -22,18 +22,27 @@ class Times:
     self.coming = [vid for _, vid, __ in nextbus.nextbus_stop_helper('sf-muni', 'L', '15419')]
     for vid in old_coming:
       if vid not in self.coming:
-        self.left_ts[vid] = time.
+        self.left_ts[vid] = time.time()
+        
+  def debug():
+    return "{} {} {} {}".format(self.coming, self.in_transit, self.left_ts, self.arrived_ts)
+        
+TIMES = Times()
+    
 
 @app.route("/")
 def hello():
-  outs = nextbus.nextbus_stop_helper('sf-muni', 'L', '15419')
-  return "Hello World! {}\n{}".format(NONCE, outs)
+  return "Hello World! {}\n".format(NONCE)
 
 @app.route("/update-times", methods=["POST"])
 def update_times():
-  global NONCE
-  NONCE += 1
-  return "Updated {}".format(NONCE)
+  TIMES.update_times()
+  return "Updated {}".format(TIMES.left_ts)
+
+@app.route("/debug")
+def debug():
+  return TIMES.debug()
+  
 
 if __name__ == "__main__":
   app.run()
