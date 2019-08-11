@@ -20,13 +20,13 @@ class Times:
     for vid in old_coming:
       if vid not in self.coming:
         self.left_ts[vid] = time.time()
-        self.in_transit.append(vid)
+        self.in_transit.add(vid)
     arriving = {vid for _, vid, __ in nextbus.nextbus_stop_helper('sf-muni', 'L', '15731')}
     for vid in self.in_transit:
       if vid not in arriving:
         self.in_transit.remove(vid)
-        if vid in left_ts:
-          self.times.appendleft((time.time() - left_ts.pop(vid)) / 60)
+        if vid in self.left_ts:
+          self.times.appendleft((time.time() - self.left_ts.pop(vid)) / 60)
         
         
         
