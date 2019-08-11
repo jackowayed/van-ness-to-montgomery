@@ -44,7 +44,7 @@ def times():
 @app.route("/update-times", methods=["POST"])
 def update_times():
   TIMES.update_times()
-  return "Updated {}".format(TIMES.left_ts)
+  return "Updated"
 
 @app.route("/debug")
 def debug():
