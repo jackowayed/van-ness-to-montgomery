@@ -13,7 +13,7 @@ NONCE = 0
 @app.route("/")
 def hello():
   outs = nextbus.nextbus_stop_helper('sf-muni', 'L', '15419')
-  return "Hello World! {}".format(NONCE)
+  return "Hello World! {}\n{}".format(NONCE, outs)
 
 @app.route("/update-times", methods=["POST"])
 def update_times():

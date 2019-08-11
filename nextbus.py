@@ -11,6 +11,7 @@ from xml.dom import minidom
 from collections import defaultdict
 import urllib.request, urllib.error, urllib.parse
 import json
+import logging
 
 def escape(s):
     s = str(s)
@@ -64,13 +65,10 @@ def nextbus_stop_helper(agency, route, stop, path_adjust="", ages={}):
           "command=predictions&a=%s&%s&useShortNames=true" % (agency, load_as),
           timeout=1))
   except Exception:
-      return ("Nextbus Error",
-              ["Couldn't reach predictions server.  Try refreshing?"])
+    logging.exception("Couldn't reach predictions server")
+    return []
 
-  prediction_sections = [] # [route_tag, escaped_html]
-  stop_title = None
-
-  no_predictions = "<div class=prediction>No predictions.</div>"
+  prediction_sections = [] # (route_tag, vehicle_id, minutes)
 
   for predictions in xmldoc.getElementsByTagName("predictions"):
     # prefer the name for this stop used by the route in question
@@ -92,10 +90,8 @@ def nextbus_stop_helper(agency, route, stop, path_adjust="", ages={}):
       for prediction in direction.getElementsByTagName("prediction"):
         vid = prediction.getAttribute("vehicle")
         prediction_section.append("<div class=prediction>%s minute%s (%s%svehicle %s%s)</div>" % (
-            escape(prediction.getAttribute("minutes")),
-            "" if prediction.getAttribute("minutes") == "1" else "s",
-            "layover, " if prediction.getAttribute("affectedByLayover") == "true" else "",
-            "delayed, " if prediction.getAttribute("delayed") == "true" else "",
+            minutes = escape(prediction.getAttribute("minutes")
+            
             "<a href='%s../../%s/%s/vehicle/%s'>%s</a>" % (
                 path_adjust,
                 predictions.getAttribute("routeTag"),
