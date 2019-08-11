@@ -76,7 +76,7 @@ def nextbus_stop_helper(agency, route, stop, path_adjust="", ages={}):
         vid = prediction.getAttribute("vehicle")
         minutes = int(prediction.getAttribute("minutes"))
         prediction_sections.append((predictions.getAttribute("routeTag"),
-                                vid,
+                                int(vid),
                                 minutes))
 
   #natural_sort_in_place(prediction_sections)
