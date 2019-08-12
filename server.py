@@ -51,7 +51,7 @@ def times():
   """.format([m for m, _ in list(TIMES.times)[:10]])
   next = sorted(TIMES.coming, key=lambda c: c[1])
   for _, min, route in next[:10]:
-    rendered += 
+    rendered += "{} {}<br/>".format(route, min)
   return rendered
 
 @app.route("/update-times", methods=["POST"])
