@@ -17,10 +17,10 @@ class Times:
     
   def update_times(self):
     old_coming = self.coming
-    self.coming = {(vid, min) for _, vid, min in nextbus.nextbus_stop_helper('sf-muni', 'L', '15419')}
-    coming_ids = {vid for vid, _ in self.coming}
+    self.coming = {(vid, min, route) for route, vid, min in nextbus.nextbus_stop_helper('sf-muni', 'L', '15419')}
+    coming_ids = {c[0] for c in self.coming}
     arriving = {vid for _, vid, __ in nextbus.nextbus_stop_helper('sf-muni', 'L', '15731')}
-    for vid, minutes in old_coming:
+    for vid, minutes, _ in old_coming:
       if vid not in coming_ids and minutes < 4 and vid in arriving:
         self.left_ts[vid] = time.time()
         self.in_transit.add(vid)
@@ -45,11 +45,14 @@ TIMES = Times()
 
 @app.route("/")
 def times():
-  return """
-  Last 10 times: {}<br/>
-  Next:
-  """.format([m for m, _ in list(TIMES.times)[:10])
-  return 
+  rendered = """
+  Last 10 trip times: {}<br/>
+  Next:<br/>
+  """.format([m for m, _ in list(TIMES.times)[:10]])
+  next = sorted(TIMES.coming, key=lambda c: c[1])
+  for _, min, route in next[:10]:
+    rendered += 
+  return rendered
 
 @app.route("/update-times", methods=["POST"])
 def update_times():
