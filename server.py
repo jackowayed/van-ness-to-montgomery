@@ -30,7 +30,7 @@ class Times:
         logging.info("no {}".format(vid))
         in_transit.remove(vid)
         if vid in self.left_ts:
-          elapsed = "{0:.1f}".format((time.time() - self.left_ts.pop(vid)) / 60)
+          elapsed = "{0:.0f}".format((time.time() - self.left_ts.pop(vid)) / 60)
           self.times.appendleft((elapsed, vid))
     self.in_transit = in_transit
         
@@ -45,7 +45,11 @@ TIMES = Times()
 
 @app.route("/")
 def times():
-  return repr([m for m, _ in list(TIMES.times)[:10]])
+  return """
+  Last 10 times: {}<br/>
+  Next:
+  """.format([m for m, _ in list(TIMES.times)[:10])
+  return 
 
 @app.route("/update-times", methods=["POST"])
 def update_times():
