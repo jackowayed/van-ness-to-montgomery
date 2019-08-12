@@ -1,6 +1,6 @@
-# The code behind 
+# Modified from https://github.com/jeffkaufman/nextbus
 #
-#
+# GPL
 #
 #
 
