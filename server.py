@@ -45,14 +45,10 @@ TIMES = Times()
 
 @app.route("/")
 def times():
-  rendered = """
-  Last 10 trip times: {}<br/>
-  Next:<br/>
-  """.format([m for m, _ in list(TIMES.times)[:10]])
+  last_ten = [m for m, _ in list(TIMES.times)[:10]]
   next = sorted(TIMES.coming, key=lambda c: c[1])
-  for _, min, route in next[:10]:
-    rendered += "{} {}<br/>".format(route, min)
-  return rendered
+  next_trains = [(route, min for _, min, route in next[:10]]
+  return render_template("index.html", last_ten=last_ten, next_trains=next_trains)
 
 @app.route("/update-times", methods=["POST"])
 def update_times():
