@@ -35,7 +35,6 @@ class Times:
     self.in_transit = in_transit
         
         
-        
   def debug(self):
     return "Coming: {}\nIn Transit: {}\nLeft: {}\nTimes: {}\n".format(
       self.coming, self.in_transit, self.left_ts, self.times)
@@ -47,7 +46,7 @@ TIMES = Times()
 def times():
   last_ten = [m for m, _ in list(TIMES.times)[:10]]
   next = sorted(TIMES.coming, key=lambda c: c[1])
-  next_trains = [(route, min for _, min, route in next[:10]]
+  next_trains = [(route, min) for _, min, route in next[:10]]
   return render_template("index.html", last_ten=last_ten, next_trains=next_trains)
 
 @app.route("/update-times", methods=["POST"])
