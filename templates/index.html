@@ -1,5 +1,18 @@
-Last 10: {{ last_ten }}
-<h3>Next</h3>
-{% for route, minutes in next_trains %}
-{{ route }} {{ minutes }}<br />
-{% endfor %}
+<html>
+<head>
+<style type="text/css">
+    .container {
+        display: grid;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    Last 10: {{ last_ten }}
+    <h3>Next</h3>
+    {% for route, minutes in next_trains %}
+        {{ route }} {{ minutes }}<br />
+    {% endfor %}
+</div>
+</body>
+</html>
