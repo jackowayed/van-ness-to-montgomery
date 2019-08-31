@@ -1,6 +1,5 @@
 from flask import Flask, render_template
 app = Flask(__name__)
-
 import collections
 import logging
 import nextbus
@@ -65,3 +64,5 @@ def debug_html():
 
 if __name__ == "__main__":
   app.run()
+
+

@@ -3,6 +3,25 @@
 <style type="text/css">
     .container {
         display: grid;
+        max-width: 500px;
+        font-size: 36pt;
+        margin: auto;
+    }
+    .upcoming-train {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .upcoming-train .line {
+        border: solid;
+        border-radius: 15%;
+    }
+    .box {
+        width: 90px;
+        height: 90px;
+        line-height: 90px;
+        text-align: center;
+        margin: 5px;
     }
 </style>
 </head>
@@ -11,7 +30,10 @@
     Last 10: {{ last_ten }}
     <h3>Next</h3>
     {% for route, minutes in next_trains %}
-        {{ route }} {{ minutes }}<br />
+        <div class="upcoming-train">
+            <span class="line box">{{route}}</span>
+            <span class="minutes box">{{minutes}}</span>
+        </div>
     {% endfor %}
 </div>
 </body>
