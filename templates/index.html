@@ -3,6 +3,7 @@
 <style type="text/css">
     body {
         font-family: Arial, Helvetica, sans-serif;
+        font-variant-numeric: tabular-nums;
     }
     h3 {
         margin-block-start: 0.5em;
@@ -22,7 +23,6 @@
     .upcoming-train .upcoming-time {
         font-weight: bold;
         text-align: right;
-        font-variant-numeric: tabular-nums;
     }
     .upcoming-train .line {
         border: solid;
@@ -77,10 +77,7 @@
             <span class="recent-time">{{ n }}</span>
         {% endfor %}
     </div>
-    <div>
-        <span class="num-in-transit">{{in_transit}}</span> in transit
-    </div>
-    <h3>Next</h3>
+    <h3>{{in_transit}} in transit. Next</h3>
     {% for route, minutes in next_trains %}
         <div class="upcoming-train">
             <span class="line box train-{{route}}">{{route}}</span>
