@@ -6,9 +6,17 @@
         font-variant-numeric: tabular-nums;
         font-size: 36pt;
     }
+    .container {
+        display: flex;
+    }
     h3 {
         margin-block-start: 0.5em;
         margin-block-end: 0.5em;
+    }
+    h4 {
+        font-size: 24pt;
+        margin-block-start: 0.5em;
+        margin-block-end: 0;
     }
     .main-container {
         /*display: grid;*/
@@ -90,11 +98,7 @@
 </style>
 </head>
 <body>
-<div class="sidebar">
-        <h4>Embarcadero</h4>
-        <h4>🚇⬆️</h4>
-        <h4>🚇⬆️</h4>
-</div>
+<div class="container">
 <div class="main-container">
     <h3>Recent Trip Times</h3>
     <div class="recent">
@@ -109,6 +113,18 @@
             <span class="upcoming-time box">{{minutes}}</span>
         </div>
     {% endfor %}
+</div>
+<div class="sidebar">
+        <h4>Embarcadero</h4>
+        <h4>🚇⬆️</h4>
+        <h4>🚇⬆️</h4>
+        <h4>Montgomery</h4>
+        <h4>🚇⬆️</h4>
+        <h4>Van Ness</h4>
+        <h4>🚇⬆️</h4>
+        <h4>🚇⬆️</h4>
+        <h4>🚇⬆️</h4>
+</div>
 </div>
 </body>
 </html>
