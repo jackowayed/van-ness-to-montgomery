@@ -39,7 +39,7 @@
         background-color: rgb(244, 165, 68);
     }
     .upcoming-train .line.train-KT {
-        background-color: rgb(209, 22, 70);
+        background-color: 
     }
     .upcoming-train .line.train-L {
         background-color: rgb(144, 45, 142);
@@ -63,6 +63,17 @@
     .recent-time {
         font-size: 30pt;
         padding-right: 20px;
+        color: white;
+        background-color: black;
+    }
+    .recent-time .good {
+        background-color: rgb(17, 129, 83);
+    }
+    .recent-time .fair {
+        background-color: rgb(252, 201, 47);
+    }
+    .recent-time .bad {
+        background-color: rgb(209, 22, 70);
     }
     .num-in-transit {
         font-weight: bold;
@@ -74,7 +85,8 @@
     <h3>Recent Trip Times</h3>
     <div class="recent">
         {% for n in last_ten %}
-            <span class="recent-time">{{ n }}</span>
+            {% set min = float(n) %}
+            <span class="recent-time {{'good' if min <= 5.5 else ('fair' if min <= 7.5 else 'bad')}}">{{ n }}</span>
         {% endfor %}
     </div>
     <h3>{{in_transit}} in transit. Next</h3>

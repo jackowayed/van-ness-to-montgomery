@@ -29,7 +29,8 @@ class Times:
         logging.info("no {}".format(vid))
         in_transit.remove(vid)
         if vid in self.left_ts:
-          elapsed = "{0:.0f}".format((time.time() - self.left_ts.pop(vid)) / 60)
+          elapsed = (time.time() - self.left_ts.pop(vid)) / 60
+          
           self.times.appendleft((elapsed, vid))
     self.in_transit = in_transit
         
