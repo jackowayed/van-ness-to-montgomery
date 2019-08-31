@@ -1,9 +1,7 @@
 {
     "restart": {
         "include": [
-            "\\.py$",
-            "\\.html$",
-          "^templates/index.html$"
+            "\\.py$"
         ]
     },
     "throttle": 50
