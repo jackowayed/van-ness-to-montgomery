@@ -1,7 +1,10 @@
-"restart": {
-    "include": [
-        "\\.py$",
-        "\\.html$"
-    ]
-},
-"throttle": 50
+{
+    "restart": {
+        "include": [
+            "\\.py$",
+            "\\.html$",
+          "^templates/index.html$"
+        ]
+    },
+    "throttle": 50
+}
