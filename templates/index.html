@@ -14,26 +14,30 @@
     }
     .upcoming-train .line {
         border: solid;
-        border-radius: 15%;
+        border-radius: 50%;
+        border-color: black;
+        border-width: 5px;
         color: white;
         background-color: black;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
     }
-    .upcoming-train .line .train-J {
+    .upcoming-train .line.train-J {
         background-color: rgb(244, 165, 68);
     }
-    .upcoming-train .line .train-KT {
-        background-color: rgb(207, 76, 71);
+    .upcoming-train .line.train-KT {
+        background-color: rgb(209, 22, 70);
     }
-    .upcoming-train .line .train-L {
+    .upcoming-train .line.train-L {
         background-color: rgb(144, 45, 142);
     }
-    .upcoming-train .line .train-M {
+    .upcoming-train .line.train-M {
         background-color: rgb(17, 129, 83);
     }
-    .upcoming-train .line .train-N {
+    .upcoming-train .line.train-N {
         background-color: rgb(10, 81, 149);
     }
-    .upcoming-train .line .train-S {
+    .upcoming-train .line.train-S {
         background-color: yellow;
     }
     .box {
@@ -51,7 +55,7 @@
     <h3>Next</h3>
     {% for route, minutes in next_trains %}
         <div class="upcoming-train">
-            <span class="line box">{{route}}</span>
+            <span class="line box train-{{route}}">{{route}}</span>
             <span class="minutes box">{{minutes}}</span>
         </div>
     {% endfor %}
