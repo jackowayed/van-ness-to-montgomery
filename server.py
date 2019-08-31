@@ -46,7 +46,8 @@ def times():
   last_ten = [m for m, _ in list(TIMES.times)[:10]]
   next = sorted(TIMES.coming, key=lambda c: c[1])
   next_trains = [(route, min) for _, min, route in next[:10]]
-  return render_template("index.html", last_ten=last_ten, next_trains=next_trains)
+  in_transit = len(TIMES.in_transit)
+  return render_template("index.html", last_ten=last_ten, next_trains=next_trains, in_transit=in_transit)
 
 @app.route("/update-times", methods=["POST"])
 def update_times():
