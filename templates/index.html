@@ -106,7 +106,9 @@
             <span class="recent-time {{'good' if n <= 5.5 else ('fair' if n <= 7.5 else 'bad')}}">{{ "{0:.0f}".format(n) }}</span>
         {% endfor %}
     </div>
-    <h3>{{in_transit}} in transit. Next</h3>
+    <h3>&nbsp;</h3>
+    <h4>{{in_transit}} in transit</h3>
+    <h3>Next</h3>
     {% for route, minutes in next_trains %}
         <div class="upcoming-train">
             <span class="line box train-{{route}}">{{route}}</span>
