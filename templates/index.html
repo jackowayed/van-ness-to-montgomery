@@ -47,11 +47,23 @@
         text-align: center;
         margin: 5px;
     }
+    .recent {
+        display: flex;
+    }
+    .recent-time {
+        font-size: 24pt;
+        padding-left: 20px;
+    }
 </style>
 </head>
 <body>
 <div class="container">
-    Last 10: {{ last_ten }}
+    <h3>Recent Trip Times</h3>
+    <div class="recent">
+        {% for n in last_ten %}
+            <span class="recent-time">{{ n }}</span>
+        {% endfor %}
+    </div>
     <h3>Next</h3>
     {% for route, minutes in next_trains %}
         <div class="upcoming-train">
