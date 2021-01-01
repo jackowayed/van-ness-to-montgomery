@@ -26,3 +26,6 @@ There is also no pruning of the times deque. This impacts RAM usage but not runt
 Empirically, this hasn't been a problem even running it on Glitch for months;
 There's only hundreds of train runs a day, so that's maybe 100k/year, so a year's
 data is a few MB.
+
+It would be straightforward to move into Redis, especially if you don't worry about
+concurrent updates to the data.
