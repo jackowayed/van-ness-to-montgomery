@@ -19,10 +19,10 @@ Given that the storage of the times is in process, this cannot be scaled up
 to multiple processes, and it will fully start from scratch if the process is
 restarted.
 
-I have never in pr
+I have never in practice seen this be an issue other than during development,
+when Glitch restarts it every time code is changed.
 
 There is also no pruning of the times deque. This impacts RAM usage but not runtime.
 Empirically, this hasn't been a problem even running it on Glitch for months;
-I haven't looked closely at whether Glitch is restarting it from time to time,
-but there's only ~200 train runs a day, so that's only ~60k/year, so we're talking about
-~1MB if it ever gets
+There's only hundreds of train runs a day, so that's maybe 100k/year, so a year's
+data is a few MB.
